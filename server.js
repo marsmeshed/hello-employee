@@ -176,26 +176,39 @@ function addEmployee() {
 
 function updateEmployee() {
  inquirer.prompt([
+  // {
+  //   type: "update",
+  //   name: "first_name",
+  //   message: "What's your employee's first name?"
+  // },
+  // {
+  //   type: "update",
+  //   name: "last_name",
+  //   message: "What's your employee's last name?"
+  // },
   {
-    type: "update",
-    name: "first_name",
-    message: "What's your employee's first name?"
-  },
-  {
-    type: "update",
-    name: "last_name",
-    message: "What's your employee's last name?"
-  },
-  {
-    type: "update",
+    type: "input",
     name: "role_id",
     message: "What's the employee's role id?"
+  },
+  {
+    type: "input",
+    name: "manager_id",
+    message: "Who's the employee's manager?"
+  },
+  {
+    type: "input",
+    name: "employee_id",
+    message: "What's the employee's ID number?"
   }
- ]).then((upEmp) => {
-  db.updateEmployee(upEmp)
+ ]).then((answers) => {
+  console.log(answers)
+  db.updateEmp(answers.role_id,answers.employee_id).then(() => {
+    db.updateMan(answers.manager_id, answers.employee_id)
+  })
   .then(() => {
     console.log("Employee updated!")
     mainPrompts()
-  })
- })
-}
+  });
+ });
+};

@@ -35,11 +35,21 @@ addEmployee(addEmp) {
     "INSERT INTO employee SET ?", addEmp
   )
 }
-updateEmp(updEmp) {
+updateEmp(role_id, id) {
   return this.connection.promise().query(
-    "INSERT INTO employee SET ?", updEmp
+    "UPDATE employee SET role_id = ? WHERE ID = ?", [
+      role_id, id
+    ],
   )
 }
+updateMan(upd_man, id) {
+  return this.connection.promise().query(
+    "UPDATE employee SET manager_id = ? WHERE ID = ?", [
+      upd_man, id
+    ]
+  )
+}
+
 }
 
 module.exports = new DB(connection);
